@@ -51,6 +51,10 @@ public class Player {
         this.health += health;
     }
 
+    public void addMaxHealth(int maxHealth) {
+        this.maxHealth += maxHealth;
+    }
+
     public void addAttack(int attack) {
         this.attack += attack;
     }

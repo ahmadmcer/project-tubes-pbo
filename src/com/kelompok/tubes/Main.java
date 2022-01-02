@@ -154,6 +154,8 @@ public class Main {
                                 int experience = 8 * enemy.getLevel();
                                 if (experience >= player.getMaxExperience()) {
                                     System.out.println("You Level Up!");
+                                    player.addMaxHealth(player.getMaxHealth());
+
                                     System.out.println("You get +1 stats, please choice:");
                                     System.out.println("1. Attack +1");
                                     System.out.println("2. Defend +1");

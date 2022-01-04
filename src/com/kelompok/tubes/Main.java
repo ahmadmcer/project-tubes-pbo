@@ -1,138 +1,225 @@
 package com.kelompok.tubes;
 
+import java.util.Random;
 import java.util.Scanner;
-import java.util.ArrayList;
-
 public class Main {
     public static void main(String[] args) {
-        String name;
-        String newName;
-        String race;
+        // Initialization Objects
+        Random random = new Random();
+        Scanner scan = new Scanner(System.in); // Scanner
 
-        //Initialization Arraylist
-        ArrayList<Creature> Player = new ArrayList();
+        // Initialization Variables
+        boolean gameover = false; // For checking if is game over
+        boolean fight = false; // For checking if is fight or not
+        int gacha; // Gacha event (random)
+        int code; // Code for input action
 
-        //Interface Game
-        Scanner sc = new Scanner(System.in);
-        System.out.println("Welcome to Dragon Slayer");
+        System.out.println("Welcome to Dragon Slayer!");
         System.out.println("1. Start");
-        System.out.println("2. Quit");
-        System.out.print(">");
-        int code = sc.nextInt();
+        System.out.println("2. Exit");
+        System.out.print("> ");
+        code = scan.nextInt();
         System.out.println();
 
-        //Exit
-        if (code == 2){
+        // For exit
+        if (code == 2) {
             System.exit(0);
         }
 
-        //Main Game
-        switch (code){
-            case 1:
-                //Adding Player
-                System.out.println("<=== Add Player ===>");
-                System.out.print("Enter Name's Player\t: ");
-                name = sc.next();
-                System.out.println("\n"+name + ", What race are you ?");
-                System.out.println("" +
-                        "H/h: Human" +
-                        "\nG/g: Goblin" +
-                        "\nS/s: Slime" +
-                        "\nM/m: Minotaur" +
-                        "\nE/e: Elf");
-                System.out.print("Please enter your race, " +name+ "\t: ");
-                race = sc.next();
+        // Initialization Player
+        Player player = new Player(20, 20, 5, 5, 0, 8, 1);
 
-                //Re-Typing Adding Player
-                Creature player = new Creature(name, race);
-                Player.add(player);
-                System.out.println(" ");
-                System.out.print("Enter Player's Name\t: " + "*Before that, type 'quit' when no more players.");
-                newName = sc.next();
+        // Main game
+        while (!gameover) {
+            System.out.println("[Your Action]");
+            System.out.println("1. Walk");
+            System.out.println("2. Rest");
+            System.out.println("3. Show Stats");
+            System.out.print("> ");
+            code = scan.nextInt();
+            System.out.println();
 
-                //While typing Quit
-                while (!"quit".equals(newName)){
-                    System.out.println(newName + ", What race are you ?");
-                    System.out.println("" +
-                            "H/h: Human" +
-                            "\nG/g: Goblin" +
-                            "\nS/s: Slime" +
-                            "\nM/m: Minotaur" +
-                            "\nE/e: Elf");
-                    System.out.print("Please Enter Your Race\t: ");
-                    race = sc.nextLine();
-                    player = new Creature(newName, race);
-                    Player.add(player);
+            switch (code) {
+                case 1:
+                    // Walk
+                    gacha = random.nextInt(2);
 
-                    System.out.println(" ");
-                    System.out.println("Enter Player's Name\t: " + "*Before that, type 'quit' when no more players.");
-                    newName = sc.nextLine();
-                }
+                    if (gacha == 1) {
+                        // Initialization Enemy
+                        Enemy enemy;
+                        gacha = random.nextInt(3);
+                        switch (gacha) {
+                            case 0:
+                                enemy = new Slime(5, 5, 1, 0, 1);
+                                break;
+                            case 1:
+                                enemy = new Goblin(15, 15, 3, 2, 1);
+                                break;
+                            case 2:
+                                enemy = new Minotaur(50, 50, 10, 15, 10);
+                                break;
+                            default:
+                                throw new IllegalStateException("Unexpected value: " + gacha);
+                        }
+                        
+                        System.out.println("You meet " + enemy.getName() + " (enemy).");
+                        System.out.println("[Your Action]");
+                        System.out.println("1. Fight");
+                        System.out.println("2. Run");
+                        System.out.print("> ");
+                        code = scan.nextInt();
+                        System.out.println();
 
-                //Message Character Created.
-                System.out.println("Congratulations! New Fighters are Created.");
-                System.out.println("You will fight until the death, come to you.");
-                System.out.println("The Last One Standing Wins. Good Luck Fighters.");
-                System.out.println("  |Name|   |Species|     |Strength|      |Hit Points|");
-                //Counting
-                for (int count = 0; count <= Player.size() - 1; count++){
-                    Creature p = Player.get(count);
-                    System.out.println(p.toString());
-                }
-                //Battle Start
-                System.out.println("The Players Are Ready!. Let The Battle Begin, for the Dragon");
-                for (int i = 0; i <= Player.size() - 1; i++) {
-                    Player.get(i);
-                    System.out.println(name.toString()+", Select one of the following options");
-                    System.out.println("a/A: Attack an Opponent");
-                    System.out.println("e/E: Evade");
-                    System.out.println("q/Q: Quit");
-                    System.out.println("Your Choice\t: ");
-                    String choice = sc.next();
+                        switch (code) {
+                            case 1:
+                                fight = true;
+                                break;
+                            case 2:
+                                gacha = random.nextInt(2);
+                                if (gacha == 1) {
+                                    fight = true;
+                                    System.out.println("You got caught by the enemy!");
+                                } else {
+                                    System.out.println("You got away.");
+                                }
+                                break;
+                        }
 
-                    //Choose A
-                    if (choice.equals("a")||choice.equals("A")){
-                        System.out.println("Which player are you attacking ?");
-                        String target = sc.next();
-                        int hitp = 0;
-                        for (int j = 0; j < Player.size()-1; j++) {
-                            Player.get(j);
-                            String targetName = name;
-                            if (target.equals(targetName)){
-                                hitp = Creature.getHitPoints(name);
-                            } else {
-                                j++;
+                        while (fight) {
+                            System.out.println("[Player Lv. " + player.getLevel() + "]");
+                            System.out.println("HP: " + player.getHealth() + "/" + player.getMaxHealth());
+                            System.out.println("[Goblin Lv. " + enemy.getLevel() + "]");
+                            System.out.println("HP: " + enemy.getHealth() + "/" + enemy.getMaxHealth());
+
+                            System.out.println("\n[Your Action]");
+                            System.out.println("1. Attack");
+                            System.out.println("2. Defend");
+                            System.out.println("3. Show Enemy Stats");
+                            System.out.println("4. Show Your Stats");
+                            System.out.print("> ");
+                            code = scan.nextInt();
+                            System.out.println();
+
+                            switch (code) {
+                                case 1:
+                                    System.out.print("You are attacking, ");
+                                    gacha = random.nextInt(2);
+                                    if (gacha == 1) { // Enemy attacking
+                                        // Player turn
+                                        enemy.onHit(player.getAttack());
+                                        System.out.println("enemy get hit by " + player.getAttack() + ".");
+
+                                        // Enemy turn
+                                        player.onHit(enemy.getAttack());
+                                        System.out.println("Now enemy is attacking, you get hit by " + enemy.getAttack());
+                                    } else { // Enemy defending
+                                        int hit = player.getAttack() - enemy.getDefense();
+
+                                        if (hit > 0) {
+                                            enemy.onHit(hit);
+                                            System.out.println("but enemy is defending, enemy get hit by " + hit + ".");
+                                        } else {
+                                            System.out.println("but enemy is defending, enemy not get hit.");
+                                        }
+                                    }
+                                    break;
+                                case 2:
+                                    System.out.print("You are defending, ");
+                                    gacha = random.nextInt(2);
+                                    if (gacha == 1) { // Enemy attacking
+                                        int hit = enemy.getAttack() - player.getDefense();
+
+                                        if (hit > 0) {
+                                            player.onHit(hit);
+                                            System.out.println("and enemy is attacking, you get hit by " + hit + ".");
+                                        } else {
+                                            System.out.println("and enemy is attacking, you not get hit.");
+                                        }
+                                    } else { // Enemy defending
+                                        System.out.println("but enemy is defending, no one get hit.");
+                                    }
+                                    break;
+                                case 3:
+                                    System.out.println("[Enemy Stats]");
+                                    System.out.println("Health\t: " + enemy.getHealth() + "/" + enemy.getMaxHealth());
+                                    System.out.println("Attack\t: " + enemy.getAttack());
+                                    System.out.println("Defense\t: " + enemy.getDefense());
+                                    System.out.println("Level\t: " + enemy.getLevel());
+                                    break;
+                                case 4:
+                                    System.out.println("[Player Stats]");
+                                    System.out.println("Health\t\t: " + player.getHealth() + "/" + player.getMaxHealth());
+                                    System.out.println("Attack\t\t: " + player.getAttack());
+                                    System.out.println("Defense\t\t: " + player.getDefense());
+                                    System.out.println("Experience\t: " + player.getExperience());
+                                    System.out.println("Level\t\t: " + player.getLevel());
+                                    break;
                             }
+
+                            // Player dead
+                            if (player.getHealth() <= 0) {
+                                System.out.println("You Dead!");
+                                fight = false;
+                                gameover = true;
+                            }
+
+                            // Player win fight
+                            if (enemy.getHealth() <= 0) {
+                                System.out.println("You win fight!");
+
+                                int experience = 8 * enemy.getLevel();
+                                if (experience >= player.getMaxExperience()) { // Checking if is level up
+                                    System.out.println("You Level Up!");
+                                    player.addHealth(player.getMaxHealth());
+                                    player.addMaxHealth(player.getMaxHealth());
+
+                                    // Get +1 stats
+                                    System.out.println("You get +1 stats, please choice:");
+                                    System.out.println("1. Attack +1");
+                                    System.out.println("2. Defend +1");
+                                    System.out.print(">");
+                                    code = scan.nextInt();
+                                    System.out.println();
+
+                                    // Choice stats to increase +1
+                                    switch (code) {
+                                        case 1:
+                                            player.addAttack(1);
+                                            break;
+                                        case 2:
+                                            player.addDefense(1);
+                                            break;
+                                    }
+                                }
+
+                                player.addExperience(experience);
+                                fight = false;
+                            }
+
+                            System.out.println();
                         }
-                        int HitDam = Creature.getDamage(race, hitp);
-                        Creature.Damage(HitDam);
 
-                    //Choose P
-                    } else if (choice.equals("p")||choice.equals("P")){
-                        return;
-
-                    //Choose Q
-                    } else if (choice.equals("q")||choice.equals("Q")){
-                        Player.remove(i);
+                    } else {
+                        System.out.println("You reach the end of the journey.");
                     }
+                    break;
+                case 2:
+                    // Rest
+                    System.out.println("You are now resting.");
+                    player.setHealth(player.getMaxHealth());
+                    break;
+                case 3:
+                    // Show stats
+                    System.out.println("[Player Stats]");
+                    System.out.println("Health\t\t: " + player.getHealth() + "/" + player.getMaxHealth());
+                    System.out.println("Attack\t\t: " + player.getAttack());
+                    System.out.println("Defense\t\t: " + player.getDefense());
+                    System.out.println("Experience\t: " + player.getExperience());
+                    System.out.println("Level\t\t: " + player.getLevel());
+                    break;
+            }
 
-                    for (int m = 0; m < Player.size()-1; i++){
-                        int stren = 0;
-                        Player.get(m);
-                        stren = Creature.getStrength();
-
-                        if (Creature.isDead(stren)){
-                            System.out.println("Sorry, " +name.toString()+", you're already dead. Thanks for Playing!");
-                            Player.remove(m);
-                        }
-                    }
-
-                    System.out.println("  |Name|   |Species|     |Strength|      |Hit Points|");
-                    for (int count = 0; count <= Player.size()-1; count++){
-                        Creature p = Player.get(count);
-                        System.out.println(p.toString());
-                    }
-                }
+            System.out.println();
         }
     }
 }

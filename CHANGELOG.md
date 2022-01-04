@@ -20,7 +20,7 @@ Here we would have the update steps for Alpha 1.0.0 for people to follow.
 
 ### Fixed
 
-## [1.0.1] - 2022-01-02
+## [Alpha 1.0.1] - 2022-01-02
 
 ### Added
 
@@ -30,7 +30,7 @@ Here we would have the update steps for Alpha 1.0.0 for people to follow.
 
 - Player max health increase after leveling up.
 
-## [1.1.0] - 2022-01-03
+## [Alpha 1.1.0] - 2022-01-03
 
 ### Added
 
@@ -43,7 +43,7 @@ Here we would have the update steps for Alpha 1.0.0 for people to follow.
 
 - Player max health increase after leveling up.
 
-## [1.1.1] - 2022-01-03
+## [Alpha 1.1.1] - 2022-01-03
 
 ### Added
 

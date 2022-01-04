@@ -2,15 +2,18 @@ package com.kelompok.tubes;
 
 public class Enemy {
     protected String name;
-    protected int health;
-    protected int maxHealth;
-    protected int attack;
-    protected int defense;
-    protected int level;
-    protected boolean defend;
+    private int health;
+    private int maxHealth;
+    private int attack;
+    private int defense;
+    private int level;
 
-    public Enemy() {
-        this.defend = false;
+    public Enemy(int health, int maxHealth, int attack, int defense, int level) {
+        this.health = health;
+        this.maxHealth = maxHealth;
+        this.attack = attack;
+        this.defense = defense;
+        this.level = level;
     }
 
     public String getName() {
@@ -35,14 +38,6 @@ public class Enemy {
 
     public int getLevel() {
         return level;
-    }
-
-    public boolean getDefend() {
-        return defend;
-    }
-
-    public void setDefend(boolean defend) {
-        this.defend = defend;
     }
 
     public void onHit(int hit) {

@@ -50,13 +50,16 @@ public class Main {
                         gacha = random.nextInt(3);
                         switch (gacha) {
                             case 0:
-                                enemy = new Slime(5, 5, 1, 0, 1);
+                                gacha = random.nextInt(player.getLevel());
+                                enemy = new Slime(gacha + 1);
                                 break;
                             case 1:
-                                enemy = new Goblin(15, 15, 3, 2, 1);
+                                gacha = random.nextInt(player.getLevel());
+                                enemy = new Goblin(gacha + 1);
                                 break;
                             case 2:
-                                enemy = new Minotaur(50, 50, 10, 15, 10);
+                                gacha = random.nextInt(player.getLevel());
+                                enemy = new Minotaur(gacha + 1);
                                 break;
                             default:
                                 throw new IllegalStateException("Unexpected value: " + gacha);

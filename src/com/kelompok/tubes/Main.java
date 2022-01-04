@@ -1,5 +1,7 @@
 package com.kelompok.tubes;
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 public class Main {
@@ -28,6 +30,12 @@ public class Main {
 
         // Initialization Player
         Player player = new Player(20, 20, 5, 5, 0, 8, 1);
+
+        //Initialization Enemies
+        List<Enemy> enemies = Arrays.asList(
+                new Goblin("Goblin", 15, 15, 3, 3, 1),
+                new Slime("Slime",10,10,3,3,1),
+                new Minotaur("Minotaur",50,50,10,10,10));
 
         // Main game
         while (!gameover) {

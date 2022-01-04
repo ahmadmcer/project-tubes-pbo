@@ -1,7 +1,5 @@
 package com.kelompok.tubes;
 
-import java.util.Arrays;
-import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 public class Main {
@@ -31,12 +29,6 @@ public class Main {
         // Initialization Player
         Player player = new Player(20, 20, 5, 5, 0, 8, 1);
 
-        //Initialization Enemies
-        List<Enemy> enemies = Arrays.asList(
-                new Goblin("Goblin", 15, 15, 3, 3, 1),
-                new Slime("Slime",10,10,3,3,1),
-                new Minotaur("Minotaur",50,50,10,10,10));
-
         // Main game
         while (!gameover) {
             System.out.println("[Your Action]");
@@ -49,10 +41,27 @@ public class Main {
 
             switch (code) {
                 case 1:
+                    // Walk
                     gacha = random.nextInt(2);
 
                     if (gacha == 1) {
-                        Enemy enemy = new Goblin("Goblin", 15, 15, 3, 3, 1);
+                        // Initialization Enemy
+                        Enemy enemy;
+                        gacha = random.nextInt(3);
+                        switch (gacha) {
+                            case 0:
+                                enemy = new Slime(5, 5, 1, 0, 1);
+                                break;
+                            case 1:
+                                enemy = new Goblin(15, 15, 3, 2, 1);
+                                break;
+                            case 2:
+                                enemy = new Minotaur(50, 50, 10, 15, 10);
+                                break;
+                            default:
+                                throw new IllegalStateException("Unexpected value: " + gacha);
+                        }
+                        
                         System.out.println("You meet " + enemy.getName() + " (enemy).");
                         System.out.println("[Your Action]");
                         System.out.println("1. Fight");
@@ -81,11 +90,12 @@ public class Main {
                             System.out.println("HP: " + player.getHealth() + "/" + player.getMaxHealth());
                             System.out.println("[Goblin Lv. " + enemy.getLevel() + "]");
                             System.out.println("HP: " + enemy.getHealth() + "/" + enemy.getMaxHealth());
+
                             System.out.println("\n[Your Action]");
                             System.out.println("1. Attack");
                             System.out.println("2. Defend");
                             System.out.println("3. Show Enemy Stats");
-                            System.out.println("3. Show Your Stats");
+                            System.out.println("4. Show Your Stats");
                             System.out.print("> ");
                             code = scan.nextInt();
                             System.out.println();
@@ -112,7 +122,6 @@ public class Main {
                                             System.out.println("but enemy is defending, enemy not get hit.");
                                         }
                                     }
-
                                     break;
                                 case 2:
                                     System.out.print("You are defending, ");
@@ -129,7 +138,6 @@ public class Main {
                                     } else { // Enemy defending
                                         System.out.println("but enemy is defending, no one get hit.");
                                     }
-
                                     break;
                                 case 3:
                                     System.out.println("[Enemy Stats]");
@@ -137,7 +145,6 @@ public class Main {
                                     System.out.println("Attack\t: " + enemy.getAttack());
                                     System.out.println("Defense\t: " + enemy.getDefense());
                                     System.out.println("Level\t: " + enemy.getLevel());
-
                                     break;
                                 case 4:
                                     System.out.println("[Player Stats]");
@@ -146,24 +153,27 @@ public class Main {
                                     System.out.println("Defense\t\t: " + player.getDefense());
                                     System.out.println("Experience\t: " + player.getExperience());
                                     System.out.println("Level\t\t: " + player.getLevel());
-
                                     break;
                             }
 
+                            // Player dead
                             if (player.getHealth() <= 0) {
                                 System.out.println("You Dead!");
                                 fight = false;
                                 gameover = true;
                             }
 
+                            // Player win fight
                             if (enemy.getHealth() <= 0) {
                                 System.out.println("You win fight!");
 
                                 int experience = 8 * enemy.getLevel();
-                                if (experience >= player.getMaxExperience()) {
+                                if (experience >= player.getMaxExperience()) { // Checking if is level up
                                     System.out.println("You Level Up!");
+                                    player.addHealth(player.getMaxHealth());
                                     player.addMaxHealth(player.getMaxHealth());
 
+                                    // Get +1 stats
                                     System.out.println("You get +1 stats, please choice:");
                                     System.out.println("1. Attack +1");
                                     System.out.println("2. Defend +1");
@@ -171,6 +181,7 @@ public class Main {
                                     code = scan.nextInt();
                                     System.out.println();
 
+                                    // Choice stats to increase +1
                                     switch (code) {
                                         case 1:
                                             player.addAttack(1);
@@ -191,26 +202,20 @@ public class Main {
                     } else {
                         System.out.println("You reach the end of the journey.");
                     }
-
                     break;
                 case 2:
-                    if ((player.getHealth() + 5) < player.getMaxHealth()) { // Check if healing does not exceed maxHealth
-                        player.addHealth(5);
-                    } else {
-                        player.setHealth(player.getMaxHealth());
-                    }
-
+                    // Rest
                     System.out.println("You are now resting.");
-
+                    player.setHealth(player.getMaxHealth());
                     break;
                 case 3:
+                    // Show stats
                     System.out.println("[Player Stats]");
                     System.out.println("Health\t\t: " + player.getHealth() + "/" + player.getMaxHealth());
                     System.out.println("Attack\t\t: " + player.getAttack());
                     System.out.println("Defense\t\t: " + player.getDefense());
                     System.out.println("Experience\t: " + player.getExperience());
                     System.out.println("Level\t\t: " + player.getLevel());
-
                     break;
             }
 

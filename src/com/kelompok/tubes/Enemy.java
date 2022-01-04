@@ -1,15 +1,14 @@
 package com.kelompok.tubes;
 
 public class Enemy {
-    private String name;
+    protected String name;
     private int health;
     private int maxHealth;
     private int attack;
     private int defense;
     private int level;
 
-    public Enemy(String name, int health, int maxHealth, int attack, int defense, int level) {
-        this.name = name;
+    public Enemy(int health, int maxHealth, int attack, int defense, int level) {
         this.health = health;
         this.maxHealth = maxHealth;
         this.attack = attack;

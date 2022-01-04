@@ -1,5 +1,8 @@
 package com.kelompok.tubes;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class Enemy {
     private String name;
     private int health;
@@ -44,4 +47,10 @@ public class Enemy {
     public void onHit(int hit) {
         this.health -= hit;
     }
+
+    List<Enemy> enemies = Arrays.asList(
+            new Goblin("Goblin", 15, 15, 3, 3, 1),
+            new Slime("Slime",10,10,3,3,1),
+            new Minotaur("Minotaur",50,50,10,10,10));
+
 }

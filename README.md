@@ -1,5 +1,7 @@
 # Project Tubes PBO
 
+SEE CHANGELOG PLEASE >> [CHANGELOG.md](https://github.com/ahmadmcer/project-tubes-pbo/blob/main/CHANGELOG.md)
+
 ## Cara Commit
 
 - **feat**

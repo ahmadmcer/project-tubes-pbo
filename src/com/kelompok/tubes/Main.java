@@ -88,7 +88,7 @@ public class Main {
                         while (fight) {
                             System.out.println("[Player Lv. " + player.getLevel() + "]");
                             System.out.println("HP: " + player.getHealth() + "/" + player.getMaxHealth());
-                            System.out.println("[Goblin Lv. " + enemy.getLevel() + "]");
+                            System.out.println("[" + enemy.getName() + " Lv. " + enemy.getLevel() + "]");
                             System.out.println("HP: " + enemy.getHealth() + "/" + enemy.getMaxHealth());
 
                             System.out.println("\n[Your Action]");
@@ -151,33 +151,37 @@ public class Main {
                                     System.out.println("Health\t\t: " + player.getHealth() + "/" + player.getMaxHealth());
                                     System.out.println("Attack\t\t: " + player.getAttack());
                                     System.out.println("Defense\t\t: " + player.getDefense());
-                                    System.out.println("Experience\t: " + player.getExperience());
+                                    System.out.println("Experience\t: " + player.getExperience() + "/" + player.getMaxExperience());
                                     System.out.println("Level\t\t: " + player.getLevel());
                                     break;
                             }
 
                             // Player dead
                             if (player.getHealth() <= 0) {
-                                System.out.println("You Dead!");
+                                System.out.println("\nYou Dead!");
                                 fight = false;
                                 gameover = true;
                             }
 
                             // Player win fight
                             if (enemy.getHealth() <= 0) {
-                                System.out.println("You win fight!");
+                                System.out.println("\nYou win fight!");
 
-                                int experience = 8 * enemy.getLevel();
-                                if (experience >= player.getMaxExperience()) { // Checking if is level up
+                                player.addExperience(8 * enemy.getLevel());
+                                while (player.getExperience() >= player.getMaxExperience()) {
                                     System.out.println("You Level Up!");
-                                    player.addHealth(player.getMaxHealth());
-                                    player.addMaxHealth(player.getMaxHealth());
+                                    System.out.println("Your Experience\t\t: " + player.getExperience() + "/" + player.getMaxExperience());
+                                    player.addExperience(player.getMaxExperience() * -1);
+                                    player.addMaxExperience(8);
+                                    player.addLevel(1);
+                                    player.addHealth(20);
+                                    player.addMaxHealth(20);
 
                                     // Get +1 stats
                                     System.out.println("You get +1 stats, please choice:");
                                     System.out.println("1. Attack +1");
                                     System.out.println("2. Defend +1");
-                                    System.out.print(">");
+                                    System.out.print("> ");
                                     code = scan.nextInt();
                                     System.out.println();
 
@@ -192,7 +196,6 @@ public class Main {
                                     }
                                 }
 
-                                player.addExperience(experience);
                                 fight = false;
                             }
 
@@ -214,7 +217,7 @@ public class Main {
                     System.out.println("Health\t\t: " + player.getHealth() + "/" + player.getMaxHealth());
                     System.out.println("Attack\t\t: " + player.getAttack());
                     System.out.println("Defense\t\t: " + player.getDefense());
-                    System.out.println("Experience\t: " + player.getExperience());
+                    System.out.println("Experience\t: " + player.getExperience() + "/" + player.getMaxExperience());
                     System.out.println("Level\t\t: " + player.getLevel());
                     break;
             }

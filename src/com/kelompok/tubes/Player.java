@@ -65,12 +65,14 @@ public class Player {
 
     public void addExperience(int experience) {
         this.experience += experience;
+    }
 
-        if (experience >= maxExperience) {
-            this.level += 1;
-            this.experience -= maxExperience;
-            this.maxExperience *= 2;
-        }
+    public void addMaxExperience(int maxExperience) {
+        this.maxExperience += maxExperience;
+    }
+
+    public void addLevel(int level) {
+        this.level += level;
     }
 
     public void onHit(int hit) {

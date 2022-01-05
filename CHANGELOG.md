@@ -53,3 +53,15 @@ Here we would have the update steps for Alpha 1.0.0 for people to follow.
 
 - Enemies come randomly.
 - Player health increase after leveling up.
+
+##[Alpha 1.1.2] -2022-01-05
+
+## Added 
+- Add dragon
+- Add ruin golem
+- add witch
+
+## Changed
+- new feature speed added
+
+## Fixed

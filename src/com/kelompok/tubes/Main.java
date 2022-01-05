@@ -10,6 +10,7 @@ public class Main {
 
         // Initialization Variables
         boolean gameover = false; // For checking if is game over
+        boolean canWalk = true; // For checking if is can walk or not
         boolean canRest = false; // For checking if is can rest or not
         boolean fight = false; // For checking if is fight or not
         int gacha; // Gacha event (random)
@@ -31,9 +32,7 @@ public class Main {
 
         // Main game
         while (!gameover) {
-            while (!canRest) {
-                if (gameover) break;
-
+            while (canWalk) {
                 System.out.println("\nYou woke up.");
                 System.out.println("[Your Action]");
                 System.out.println("1. Walk");
@@ -45,7 +44,6 @@ public class Main {
                     case 1:
                         // Walk
                         gacha = random.nextInt(10);
-
                         if (gacha > 2) {
                             // Initialization Enemy
                             Enemy enemy;
@@ -67,7 +65,7 @@ public class Main {
                                     throw new IllegalStateException("Unexpected value: " + gacha);
                             }
 
-                            System.out.println("\nYou cross paths with " + enemy.getName() + " (enemy).");
+                            System.out.println("\nYou cross paths with " + enemy.getName() + " Lv " + enemy.getLevel() + ".");
                             System.out.println("[Your Action]");
                             System.out.println("1. Fight");
                             System.out.println("2. Run");
@@ -85,84 +83,83 @@ public class Main {
                                         System.out.println("\nYou got caught by the enemy!");
                                     } else {
                                         System.out.println("\nYou escaped.");
+                                        canWalk = false;
+                                        canRest = true;
                                     }
                                     break;
                             }
 
                             while (fight) {
-                                System.out.println("\n[Player Lv. " + player.getLevel() + "]");
-                                System.out.println("HP: " + player.getHealth() + "/" + player.getMaxHealth());
-                                System.out.println("[" + enemy.getName() + " Lv. " + enemy.getLevel() + "]");
-                                System.out.println("HP: " + enemy.getHealth() + "/" + enemy.getMaxHealth());
+                                // Player turn
+                                System.out.print("\n[Player Lv. " + player.getLevel() + "]");
+                                System.out.println("\t\t\t[" + enemy.getName() + " Lv. " + enemy.getLevel() + "]");
+
+                                System.out.print(" HP : " + player.getHealth() + "/" + player.getMaxHealth());
+                                System.out.println("\t\t\t\t HP : " + enemy.getHealth() + "/" + enemy.getMaxHealth());
+
+                                System.out.print(" ATK: " + player.getAttack());
+                                System.out.println("\t\t\t\t\t ATK: " + enemy.getAttack());
+
+                                System.out.print(" DEF: " + player.getDefense());
+                                System.out.println("\t\t\t\t\t DEF: " + enemy.getDefense());
 
                                 System.out.println("\n[Your Action]");
                                 System.out.println("1. Attack");
                                 System.out.println("2. Defend");
-                                System.out.println("3. Show Enemy Stats");
-                                System.out.println("4. Show Your Stats");
                                 System.out.print("> ");
                                 code = scan.nextInt();
 
                                 switch (code) {
                                     case 1:
                                         System.out.print("\nYou attack the enemy, ");
-                                        gacha = random.nextInt(2);
-                                        if (gacha == 1) { // Enemy attacking
-                                            // Player turn
-                                            enemy.onHit(player.getAttack());
-                                            System.out.println("and they lost " + player.getAttack() + " HP.");
-
-                                            // Enemy turn
-                                            player.onHit(enemy.getAttack());
-                                            System.out.println("Now enemy is attacking, you lost " + enemy.getAttack() + " HP.");
-                                        } else { // Enemy defending
+                                        player.setDefend(false);
+                                        if (enemy.getDefend()) { // Enemy defending
                                             int hit = player.getAttack() - enemy.getDefense();
-
                                             if (hit > 0) {
                                                 enemy.onHit(hit);
-                                                System.out.println("but enemy is defending, they lost " + hit + " HP.");
+                                                System.out.println("they lost " + hit + " HP.");
                                             } else {
-                                                System.out.println("but enemy is defending, they didn't get hurt.");
+                                                System.out.println("they didn't get hurt.");
                                             }
+                                        } else { // Enemy not defending
+                                            enemy.onHit(player.getAttack());
+                                            System.out.println("they lost " + player.getAttack() + " HP.");
                                         }
                                         break;
                                     case 2:
-                                        System.out.print("\nYou're defending, ");
-                                        gacha = random.nextInt(2);
-                                        if (gacha == 1) { // Enemy attacking
-                                            int hit = enemy.getAttack() - player.getDefense();
+                                        System.out.println("\nYou're defending.");
+                                        player.setDefend(true);
+                                        break;
+                                }
 
-                                            if (hit > 0) {
-                                                player.onHit(hit);
-                                                System.out.println("the enemy is attacking, you lost " + hit + " HP.");
-                                            } else {
-                                                System.out.println("the enemy is attacking, you didn't get hurt.");
-                                            }
-                                        } else { // Enemy defending
-                                            System.out.println("the enemy is also defending, so no one get hurt.");
+                                // Enemy turn
+                                gacha = random.nextInt(2);
+                                if (gacha == 1) { // Enemy attacking
+                                    enemy.setDefend(false);
+                                    if (player.getDefend()) { // Player
+                                        int hit = enemy.getAttack() - player.getDefense();
+                                        if (hit > 0) {
+                                            player.onHit(hit);
+                                            System.out.println("Enemy is attacking, you lost " + hit + " HP.");
+                                        } else {
+                                            System.out.println("Enemy is attacking, you didn't get hurt.");
                                         }
-                                        break;
-                                    case 3:
-                                        System.out.println("\n[Enemy Stats]");
-                                        System.out.println("Health\t: " + enemy.getHealth() + "/" + enemy.getMaxHealth());
-                                        System.out.println("Attack\t: " + enemy.getAttack());
-                                        System.out.println("Defense\t: " + enemy.getDefense());
-                                        System.out.println("Level\t: " + enemy.getLevel());
-                                        break;
-                                    case 4:
-                                        System.out.println("\n[Player Stats]");
-                                        System.out.println("Health\t\t: " + player.getHealth() + "/" + player.getMaxHealth());
-                                        System.out.println("Attack\t\t: " + player.getAttack());
-                                        System.out.println("Defense\t\t: " + player.getDefense());
-                                        System.out.println("Experience\t: " + player.getExperience() + "/" + player.getMaxExperience());
-                                        System.out.println("Level\t\t: " + player.getLevel());
-                                        break;
+                                    } else {
+                                        player.onHit(enemy.getAttack());
+                                        System.out.println("Enemy is attacking, you lost " + enemy.getAttack() + " HP.");
+                                    }
+                                } else { // Enemy defending
+                                    System.out.println("Enemy is defending.");
+                                    enemy.setDefend(true);
                                 }
 
                                 // Player dead
                                 if (player.getHealth() <= 0) {
                                     System.out.println("\nYou died!");
+                                    System.out.println("EXP: " + player.getExperience() + "/" + player.getMaxExperience());
+                                    System.out.println("LVL: " + player.getLevel());
                                     fight = false;
+                                    canWalk = false;
                                     gameover = true;
                                 }
 
@@ -172,7 +169,7 @@ public class Main {
 
                                     int experience = 8 * enemy.getLevel();
                                     player.addExperience(experience);
-                                    System.out.println("You get " + experience + " XP.");
+                                    System.out.println("You get " + experience + " EXP.");
 
                                     while (player.getExperience() >= player.getMaxExperience()) {
                                         System.out.println("\nYou leveled up!");
@@ -201,10 +198,12 @@ public class Main {
                                     }
 
                                     fight = false;
+                                    canWalk = false;
                                     canRest = true;
                                 }
                             }
                         } else {
+                            canWalk = false;
                             canRest = true;
                             break;
                         }
@@ -212,11 +211,11 @@ public class Main {
                     case 2:
                         // Show stats
                         System.out.println("\n[Player Stats]");
-                        System.out.println("Health\t\t: " + player.getHealth() + "/" + player.getMaxHealth());
-                        System.out.println("Attack\t\t: " + player.getAttack());
-                        System.out.println("Defense\t\t: " + player.getDefense());
-                        System.out.println("Experience\t: " + player.getExperience() + "/" + player.getMaxExperience());
-                        System.out.println("Level\t\t: " + player.getLevel());
+                        System.out.println(" HP : " + player.getHealth() + "/" + player.getMaxHealth());
+                        System.out.println(" ATK: " + player.getAttack());
+                        System.out.println(" DEF: " + player.getDefense());
+                        System.out.println(" EXP: " + player.getExperience() + "/" + player.getMaxExperience());
+                        System.out.println(" LVL: " + player.getLevel());
                         break;
                 }
             }
@@ -237,15 +236,16 @@ public class Main {
                         System.out.println("\nYou're now resting.");
                         player.setHealth(player.getMaxHealth());
                         canRest = false;
+                        canWalk = true;
                         break;
                     case 2:
                         // Show stats
                         System.out.println("\n[Player Stats]");
-                        System.out.println("Health\t\t: " + player.getHealth() + "/" + player.getMaxHealth());
-                        System.out.println("Attack\t\t: " + player.getAttack());
-                        System.out.println("Defense\t\t: " + player.getDefense());
-                        System.out.println("Experience\t: " + player.getExperience() + "/" + player.getMaxExperience());
-                        System.out.println("Level\t\t: " + player.getLevel());
+                        System.out.println(" HP : " + player.getHealth() + "/" + player.getMaxHealth());
+                        System.out.println(" ATK: " + player.getAttack());
+                        System.out.println(" DEF: " + player.getDefense());
+                        System.out.println(" EXP: " + player.getExperience() + "/" + player.getMaxExperience());
+                        System.out.println(" LVL: " + player.getLevel());
                         break;
                 }
             }

@@ -7,6 +7,11 @@ public class Enemy {
     protected int attack;
     protected int defense;
     protected int level;
+    protected boolean defend;
+
+    public Enemy() {
+        this.defend = false;
+    }
 
     public String getName() {
         return name;
@@ -30,6 +35,14 @@ public class Enemy {
 
     public int getLevel() {
         return level;
+    }
+
+    public boolean getDefend() {
+        return defend;
+    }
+
+    public void setDefend(boolean defend) {
+        this.defend = defend;
     }
 
     public void onHit(int hit) {

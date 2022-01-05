@@ -14,6 +14,10 @@ public class Enemy {
         this.defend = false;
     }
 
+    public Enemy(int level) {
+        this.level = level;
+    }
+
     public String getName() {
         return name;
     }

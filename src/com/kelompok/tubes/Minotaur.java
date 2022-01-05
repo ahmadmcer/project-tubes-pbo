@@ -12,7 +12,7 @@ public class Minotaur extends Enemy{
 
     public String  IntroAlley() {
         super.IntroAlley();
-        System.out.println("Our people will allways defeat human");
+        System.out.println("Hahaha, Human? its sound easy! \nHuman are weak");
         return word;
     }
 }

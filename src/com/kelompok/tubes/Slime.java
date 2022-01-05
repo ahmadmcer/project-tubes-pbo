@@ -12,7 +12,7 @@ public class Slime extends Enemy{
 
     public String IntroAlley() {
         super.IntroAlley();
-        System.out.println("Our people will allways defeat human");
+        System.out.println("Boing! Boing! Boing!");
         return word;
     }
 }

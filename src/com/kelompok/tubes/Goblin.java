@@ -13,7 +13,7 @@ public class Goblin extends Enemy{
     @Override
     public String IntroAlley() {
         super.IntroAlley();
-        System.out.println("Our people will allways defeat human");
+        System.out.println("Human? Sounds delicious");
         return word;
     }
 }

@@ -82,7 +82,27 @@ public class Main {
                                     break;
                                 case 2: // Minotaur
                                     gacha = random.nextInt(player.getLevel());
-                                    enemy = new Minotaur(gacha + 1);
+                                    enemy = new Minotaur(gacha + 2);
+                                    break;
+                                case 3:
+                                    gacha = random.nextInt(player.getLevel());
+                                    enemy = new Bandit(gacha + 1);
+                                    break;
+                                case 4:
+                                    gacha = random.nextInt(player.getLevel());
+                                    enemy = new Harpy(gacha + 1);
+                                    break;
+                                case 5:
+                                    gacha = random.nextInt(player.getLevel());
+                                    enemy = new Witch(gacha + 1);
+                                    break;
+                                case 6:
+                                    gacha = random.nextInt(player.getLevel());
+                                    enemy = new Hydra(gacha + 1);
+                                    break;
+                                case 7:
+                                    gacha = random.nextInt(player.getLevel());
+                                    enemy = new Dragon(gacha + 1);
                                     break;
                                 default:
                                     throw new IllegalStateException("Unexpected value: " + gacha);

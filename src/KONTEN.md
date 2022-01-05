@@ -80,15 +80,15 @@ Setiap monster yang ditemui berdasarkan level player. Jika level player rendah, 
    OOP atau Pemrograman Berorientasi Objek merupakan pemrograman yang berorientasikan kepada objek, yang mana semua data dan fungsi dibungkus dalam class atau object.
    Dalam penggunaan OOP sendiri meliputi `Deklarasi Class`, `Deklarasi Atribut`, `Deklarasi Method` serta `Mengakses Objek`.
 
-Penerapan Class dalam pemrograman kami yaitu pada bagian
-` java
-Class Main
-Class Player
-Class Enemy
-Class Goblin
-Class Slime
-Class Minotaur
-`
+Penerapan Class dalam pemrograman kami yaitu pada bagian 
+``` java
+Class Main {...}
+Class Player {...}
+Class Enemy {...}
+Class Goblin {...}
+Class Slime {...}
+Class Minotaur {...}
+```
 Untuk penggunaan Enkapsulai, seluruh class menggunakan akses modifire `public` karena untuk dapat diakses oleh main dengan mudah, jadi menggunakan public.
 ``` java
 public class Player {...}

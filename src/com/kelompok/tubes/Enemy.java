@@ -6,6 +6,7 @@ public class Enemy {
     protected int maxHealth;
     protected int attack;
     protected int defense;
+    protected int experience;
     protected int level;
     protected boolean defend;
 

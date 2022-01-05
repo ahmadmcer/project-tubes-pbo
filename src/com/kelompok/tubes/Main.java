@@ -32,6 +32,8 @@ public class Main {
         // Main game
         while (!gameover) {
             while (!canRest) {
+                if (gameover) break;
+
                 System.out.println("\nYou woke up.");
                 System.out.println("[Your Action]");
                 System.out.println("1. Walk");
@@ -220,6 +222,8 @@ public class Main {
             }
 
             while (canRest) {
+                if (gameover) break;
+
                 System.out.println("\nYou're very tired and you can't keep going for tonight.");
                 System.out.println("[Your Action]");
                 System.out.println("1. Rest");

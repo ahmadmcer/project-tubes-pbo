@@ -53,16 +53,25 @@ public class Main {
                                 enemy = new Slime(5, 5, 1, 0, 1, 2 );
                                 break;
                             case 1:
-                                enemy = new Goblin(15, 15, 3, 2, 1, 4);
+                                enemy = new Goblin(15, 15, 3, 2, 5, 4);
                                 break;
                             case 2:
-                                enemy = new Minotaur(80, 150, 10, 15, 10, 3);
+                                enemy = new Minotaur(120, 150, 20, 25, 35, 3);
                                 break;
                             case 3:
-                                enemy = new Harpy(30, 45, 18, 10, 11, 8);
+                                enemy = new Harpy(30, 40, 22, 10, 22, 20);
                                 break;
                             case 4:
-                                enemy = new Bandit(60, 75, 8, 12, 19, 6);
+                                enemy = new Bandit(18, 20, 8, 12, 15, 6);
+                                break;
+                            case 5:
+                                enemy = new Witch(40, 60, 30, 25, 60, 8);
+                                break;
+                            case 6:
+                                enemy = new Golem(200, 250, 50, 200, 80, 3);
+                                break;
+                            case 7:
+                                enemy = new Dragon(300, 350, 200, 180, 90, 40);
                                 break;
 
                             default:

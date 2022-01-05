@@ -7,13 +7,15 @@ public class Enemy {
     private int attack;
     private int defense;
     private int level;
+    private int speed;
 
-    public Enemy(int health, int maxHealth, int attack, int defense, int level) {
+    public Enemy(int health, int maxHealth, int attack, int defense, int level, int speed) {
         this.health = health;
         this.maxHealth = maxHealth;
         this.attack = attack;
         this.defense = defense;
         this.level = level;
+        this.speed = speed;
     }
 
     public String getName() {
@@ -40,7 +42,10 @@ public class Enemy {
         return level;
     }
 
+    public int getspeed(){ return speed; }
+
     public void onHit(int hit) {
         this.health -= hit;
     }
+
 }

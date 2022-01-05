@@ -27,7 +27,7 @@ public class Main {
         }
 
         // Initialization Player
-        Player player = new Player(20, 20, 5, 5, 0, 8, 1);
+        Player player = new Player(30, 100, 10  , 15, 0, 10, 1, 5 );
 
         // Main game
         while (!gameover) {
@@ -50,14 +50,21 @@ public class Main {
                         gacha = random.nextInt(3);
                         switch (gacha) {
                             case 0:
-                                enemy = new Slime(5, 5, 1, 0, 1);
+                                enemy = new Slime(5, 5, 1, 0, 1, 2 );
                                 break;
                             case 1:
-                                enemy = new Goblin(15, 15, 3, 2, 1);
+                                enemy = new Goblin(15, 15, 3, 2, 1, 4);
                                 break;
                             case 2:
-                                enemy = new Minotaur(50, 50, 10, 15, 10);
+                                enemy = new Minotaur(80, 150, 10, 15, 10, 3);
                                 break;
+                            case 3:
+                                enemy = new Harpy(30, 45, 18, 10, 11, 8);
+                                break;
+                            case 4:
+                                enemy = new Bandit(60, 75, 8, 12, 19, 6);
+                                break;
+
                             default:
                                 throw new IllegalStateException("Unexpected value: " + gacha);
                         }
@@ -88,7 +95,7 @@ public class Main {
                         while (fight) {
                             System.out.println("[Player Lv. " + player.getLevel() + "]");
                             System.out.println("HP: " + player.getHealth() + "/" + player.getMaxHealth());
-                            System.out.println("[Goblin Lv. " + enemy.getLevel() + "]");
+                            System.out.println("[Enemy Lv. " + enemy.getLevel() + "]");
                             System.out.println("HP: " + enemy.getHealth() + "/" + enemy.getMaxHealth());
 
                             System.out.println("\n[Your Action]");
@@ -145,6 +152,7 @@ public class Main {
                                     System.out.println("Attack\t: " + enemy.getAttack());
                                     System.out.println("Defense\t: " + enemy.getDefense());
                                     System.out.println("Level\t: " + enemy.getLevel());
+                                    System.out.println("Speed\t: " + enemy.getspeed());
                                     break;
                                 case 4:
                                     System.out.println("[Player Stats]");
@@ -153,6 +161,7 @@ public class Main {
                                     System.out.println("Defense\t\t: " + player.getDefense());
                                     System.out.println("Experience\t: " + player.getExperience());
                                     System.out.println("Level\t\t: " + player.getLevel());
+                                    System.out.println("Speed\t\t: " + player.getspeed());
                                     break;
                             }
 
@@ -175,8 +184,8 @@ public class Main {
 
                                     // Get +1 stats
                                     System.out.println("You get +1 stats, please choice:");
-                                    System.out.println("1. Attack +1");
-                                    System.out.println("2. Defend +1");
+                                    System.out.println("1. Attack +3");
+                                    System.out.println("2. Defend +5");
                                     System.out.print(">");
                                     code = scan.nextInt();
                                     System.out.println();
@@ -184,10 +193,10 @@ public class Main {
                                     // Choice stats to increase +1
                                     switch (code) {
                                         case 1:
-                                            player.addAttack(1);
+                                            player.addAttack(3);
                                             break;
                                         case 2:
-                                            player.addDefense(1);
+                                            player.addDefense(5);
                                             break;
                                     }
                                 }

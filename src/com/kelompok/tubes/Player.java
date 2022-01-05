@@ -8,8 +8,10 @@ public class Player {
     private int experience;
     private int maxExperience;
     private int level;
+    private int speed;
 
-    public Player(int health, int maxHealth, int attack, int defense, int experience, int maxExperience, int level) {
+
+    public Player(int health, int maxHealth, int attack, int defense, int experience, int maxExperience, int level, int speed) {
         this.health = health;
         this.maxHealth = maxHealth;
         this.attack = attack;
@@ -17,6 +19,7 @@ public class Player {
         this.experience = experience;
         this.maxExperience = maxExperience;
         this.level = level;
+        this.speed = speed;
     }
 
     public int getHealth() {
@@ -46,6 +49,8 @@ public class Player {
     public int getLevel() {
         return level;
     }
+
+    public int getspeed() { return speed; }
 
     public void addHealth(int health) {
         this.health += health;
@@ -100,4 +105,6 @@ public class Player {
     public void setLevel(int level) {
         this.level = level;
     }
+
+
 }

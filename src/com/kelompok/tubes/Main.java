@@ -267,9 +267,9 @@ public class Main {
 
                                         // Get +1 stats
                                         do {
-                                            System.out.println("\nYou get +1 stats, please choose:");
-                                            System.out.println("1. Attack +1");
-                                            System.out.println("2. Defend +1");
+                                            System.out.println("\nYou get +5 stats, please choose:");
+                                            System.out.println("1. Attack +5");
+                                            System.out.println("2. Defend +5");
                                             System.out.print("> ");
 
                                             try {
@@ -288,10 +288,10 @@ public class Main {
                                         // Choose stats to increase +1
                                         switch (code) {
                                             case 1:
-                                                player.addAttack(1);
+                                                player.addAttack(5);
                                                 break;
                                             case 2:
-                                                player.addDefense(1);
+                                                player.addDefense(5);
                                                 break;
                                         }
                                     }

@@ -72,10 +72,6 @@ Setiap monster yang ditemui berdasarkan level player. Jika level player rendah, 
 - **Monster**
     - Stats
 
-#### FLOWCHART
-
-#### CLASS DIAGRAM
-
 1. OOP atau Pemrograman Berorientasi Objek
    OOP atau Pemrograman Berorientasi Objek merupakan pemrograman yang berorientasikan kepada objek, yang mana semua data dan fungsi dibungkus dalam class atau object.
    Dalam penggunaan OOP sendiri meliputi `Deklarasi Class`, `Deklarasi Atribut`, `Deklarasi Method` serta `Mengakses Objek`.
@@ -198,6 +194,17 @@ Setiap monster yang ditemui berdasarkan level player. Jika level player rendah, 
         -  Nama metode harus sama
         -  Daftar Parameter harus berbeda
         -  Return type dapat sama namun juga boleh berbeda;
+   untuk penarapan overloading contoh nya seperti ini :
+   
+   ```java
+    public Enemy() {
+        this.defend = false;
+    }
+
+    public Enemy(int level) {
+        this.level = level;
+    }
+   ```
    
    - Overriding
    
@@ -206,27 +213,93 @@ Setiap monster yang ditemui berdasarkan level player. Jika level player rendah, 
         - Nama metode harus sama
         - Daftar Parameter harus sama
         - Return type harus sama 
-        
+    
+    untuk penarapan overriding contoh nya seperti ini :
+    
+    ```java
+    public class Enemy {
+        ...
+
+        public Enemy(int level) {
+            this.level = level;
+        }
+
+        ...
+    }
+    
+    public class Goblin extends Enemy{
+        public Goblin(int level) {
+            this.name = "Goblin";
+            this.health = 8 * level;
+            this.maxHealth = 8 * level;
+            this.attack = 3 * level;
+            this.defense = 5 * level;
+            this.experience = 5 * level;
+            this.level = level;
+        }
+    }
+    ```
+    
 6. Polymorphisme
 
     Polymorphisme merupakan sebuah konsep dalam Object Oriented Programing (OOP) dimana class-nya memiliki nama yang sama namun bentuk yang berbeda, maksud dari pernyataan diatas yaitu memmiliki nama yang sama namun memiliki perbedaan dari isi, tipe data lalu juga parameter dari method tersebut berbeda dari method yang memiliki nama yang sama dan juga berbeda dari yang lainnya, contoh penerapan polymorphisme yaitu :
     
-    ```java
-   Enemy enemy;
-   gacha = random.nextInt(3);
-   switch (gacha) {
-       case 0:
-       enemy = new Slime(5, 5, 1, 0, 1);
-       break;
-       case 1:
-           enemy = new Goblin(15, 15, 3, 2, 1);
-           break;
-       case 2:
-           enemy = new Minotaur(50, 50, 10, 15, 10);
-           break;
-       default:
-           throw new IllegalStateException("Unexpected value: " + gacha);
-   } 
+   ```java
+    Enemy enemy;
+    if (player.getLevel() >= 95) {
+        gacha = random.nextInt(8);
+    } else if (player.getLevel() >= 80) {
+        gacha = random.nextInt(7);
+    } else if (player.getLevel() >= 60) {
+        gacha = random.nextInt(6);
+    } else if (player.getLevel() >= 40) {
+        gacha = random.nextInt(5);
+    } else if (player.getLevel() >= 25) {
+        gacha = random.nextInt(4);
+    } else if (player.getLevel() >= 15) {
+        gacha = random.nextInt(3);
+    } else if (player.getLevel() >= 10) {
+        gacha = random.nextInt(2);
+    } else {
+        gacha = 0;
+    }
+
+    switch (gacha) {
+        case 0:
+            gacha = random.nextInt(player.getLevel());
+            enemy = new Slime(gacha + 1);
+            break;
+        case 1:
+            gacha = random.nextInt(player.getLevel());
+            enemy = new Goblin(gacha + 1);
+            break;
+        case 2:
+            gacha = random.nextInt(player.getLevel());
+            enemy = new Bandit(gacha + 1);
+            break;
+        case 3:
+            gacha = random.nextInt(player.getLevel());
+            enemy = new Harpy(gacha + 1);
+            break;
+        case 4:
+            gacha = random.nextInt(player.getLevel());
+            enemy = new Minotaur(gacha + 1);
+            break;
+        case 5:
+            gacha = random.nextInt(player.getLevel());
+            enemy = new Witch(gacha + 1);
+            break;
+        case 6:
+            gacha = random.nextInt(player.getLevel());
+            enemy = new Hydra(gacha + 1);
+            break;
+        case 7:
+            gacha = random.nextInt(player.getLevel());
+            enemy = new Dragon(gacha + 1);
+            break;
+        default:
+            throw new IllegalStateException("Unexpected value: " + gacha);
+    } 
    ```
    
 7. Exception
@@ -237,6 +310,29 @@ Setiap monster yang ditemui berdasarkan level player. Jika level player rendah, 
    
    Try digunakan untuk menentukan blok kode yang nantinya akan diuji untuk exception pada saat dijalankan atau melakukan pelemparan, sedangkan Catch digunakan untuk menentukan blok kode yang akan dieksekusi apabila terjadi kesalahan dalam blok kode try.
     
-                  
+   penarapan exception try and catch dapat dicontohkan seperti ini:
+   
+   ```java
+   do {
+            System.out.println("Welcome to Dragon Slayer!");
+            System.out.println("1. Start");
+            System.out.println("2. Exit");
+            System.out.print("> ");
+
+            try {
+                code = scan.nextInt();
+                if (code == 1) {
+                    break;
+                } else if (code == 2) {
+                    System.exit(0);
+                } else {
+                    System.out.println("\n[ERROR] Input action not recognized, please enter again!");
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("\n[ERROR] Input action not recognized, please enter again!");
+                scan.nextLine();
+            }
+        } while (true);
+   ```
 
    

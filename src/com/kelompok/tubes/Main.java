@@ -2,6 +2,7 @@ package com.kelompok.tubes;
 
 import java.util.Random;
 import java.util.Scanner;
+import java.util.InputMismatchException;
 public class Main {
     public static void main(String[] args) {
         // Initialization Objects
@@ -16,16 +17,26 @@ public class Main {
         int gacha; // Gacha event (random)
         int code; // Code for input action
 
-        System.out.println("Welcome to Dragon Slayer!");
-        System.out.println("1. Start");
-        System.out.println("2. Exit");
-        System.out.print("> ");
-        code = scan.nextInt();
+        do {
+            System.out.println("Welcome to Dragon Slayer!");
+            System.out.println("1. Start");
+            System.out.println("2. Exit");
+            System.out.print("> ");
 
-        // For exit
-        if (code == 2) {
-            System.exit(0);
-        }
+            try {
+                code = scan.nextInt();
+                if (code == 1) {
+                    break;
+                } else if (code == 2) {
+                    System.exit(0);
+                } else {
+                    System.out.println("\n[ERROR] Input action not recognized, please enter again!");
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("\n[ERROR] Input action not recognized, please enter again!");
+                scan.nextLine();
+            }
+        } while (true);
 
         // Initialization Player
         Player player = new Player(20, 20, 5, 5, 0, 8, 1);
@@ -33,12 +44,24 @@ public class Main {
         // Main game
         while (!gameover) {
             while (canWalk) {
-                System.out.println("\nYou woke up.");
-                System.out.println("[Your Action]");
-                System.out.println("1. Walk");
-                System.out.println("2. Show Stats");
-                System.out.print("> ");
-                code = scan.nextInt();
+                do {
+                    System.out.println("\nYou woke up.");
+                    System.out.println("[Your Action]");
+                    System.out.println("1. Walk");
+                    System.out.println("2. Show Stats");
+                    System.out.print("> ");
+                    try {
+                        code = scan.nextInt();
+                        if (code > 0 && code <= 2) {
+                            break;
+                        } else {
+                            System.out.println("\n[ERROR] Input action not recognized, please enter again!");
+                        }
+                    } catch (InputMismatchException e) {
+                        System.out.println("\n[ERROR] Input action not recognized, please enter again!");
+                        scan.nextLine();
+                    }
+                } while (true);
 
                 switch (code) {
                     case 1:
@@ -47,7 +70,24 @@ public class Main {
                         if (gacha > 2) {
                             // Initialization Enemy
                             Enemy enemy;
-                            gacha = random.nextInt(3);
+                            if (player.getLevel() >= 95) {
+                                gacha = random.nextInt(8);
+                            } else if (player.getLevel() >= 80) {
+                                gacha = random.nextInt(7);
+                            } else if (player.getLevel() >= 60) {
+                                gacha = random.nextInt(6);
+                            } else if (player.getLevel() >= 40) {
+                                gacha = random.nextInt(5);
+                            } else if (player.getLevel() >= 25) {
+                                gacha = random.nextInt(4);
+                            } else if (player.getLevel() >= 15) {
+                                gacha = random.nextInt(3);
+                            } else if (player.getLevel() >= 10) {
+                                gacha = random.nextInt(2);
+                            } else {
+                                gacha = 0;
+                            }
+
                             switch (gacha) {
                                 case 0:
                                     gacha = random.nextInt(player.getLevel());
@@ -59,15 +99,15 @@ public class Main {
                                     break;
                                 case 2:
                                     gacha = random.nextInt(player.getLevel());
-                                    enemy = new Minotaur(gacha + 2);
+                                    enemy = new Bandit(gacha + 1);
                                     break;
                                 case 3:
                                     gacha = random.nextInt(player.getLevel());
-                                    enemy = new Bandit(gacha + 1);
+                                    enemy = new Harpy(gacha + 1);
                                     break;
                                 case 4:
                                     gacha = random.nextInt(player.getLevel());
-                                    enemy = new Harpy(gacha + 1);
+                                    enemy = new Minotaur(gacha + 1);
                                     break;
                                 case 5:
                                     gacha = random.nextInt(player.getLevel());
@@ -85,20 +125,33 @@ public class Main {
                                     throw new IllegalStateException("Unexpected value: " + gacha);
                             }
 
-                            System.out.println("\nYou cross paths with " + enemy.getName() + " Lv " + enemy.getLevel() + ".");
-                            System.out.println("[Your Action]");
-                            System.out.println("1. Fight");
-                            System.out.println("2. Run");
-                            System.out.print("> ");
-                            code = scan.nextInt();
+                            do {
+                                System.out.println("\nYou cross paths with " + enemy.getName() + " Lv " + enemy.getLevel() + ".");
+                                System.out.println("[Your Action]");
+                                System.out.println("1. Fight");
+                                System.out.println("2. Run");
+                                System.out.print("> ");
+
+                                try {
+                                    code = scan.nextInt();
+                                    if (code > 0 && code <= 2) {
+                                        break;
+                                    } else {
+                                        System.out.println("\n[ERROR] Input action not recognized, please enter again!");
+                                    }
+                                } catch (InputMismatchException e) {
+                                    System.out.println("\n[ERROR] Input action not recognized, please enter again!");
+                                    scan.nextLine();
+                                }
+                            } while (true);
 
                             switch (code) {
                                 case 1:
                                     fight = true;
                                     break;
                                 case 2:
-                                    gacha = random.nextInt(2);
-                                    if (gacha == 1) {
+                                    gacha = random.nextInt(100) + 1;
+                                    if (gacha > player.getLevel()) {
                                         fight = true;
                                         System.out.println("\nYou got caught by the enemy!");
                                     } else {
@@ -111,23 +164,36 @@ public class Main {
 
                             while (fight) {
                                 // Player turn
-                                System.out.print("\n[Player Lv. " + player.getLevel() + "]");
-                                System.out.println("\t\t\t[" + enemy.getName() + " Lv. " + enemy.getLevel() + "]");
+                                do {
+                                    System.out.print("\n[Player Lv. " + player.getLevel() + "]");
+                                    System.out.println("\t\t\t[" + enemy.getName() + " Lv. " + enemy.getLevel() + "]");
 
-                                System.out.print(" HP : " + player.getHealth() + "/" + player.getMaxHealth());
-                                System.out.println("\t\t\t\t HP : " + enemy.getHealth() + "/" + enemy.getMaxHealth());
+                                    System.out.print(" HP : " + player.getHealth() + "/" + player.getMaxHealth());
+                                    System.out.println("\t\t\t\t HP : " + enemy.getHealth() + "/" + enemy.getMaxHealth());
 
-                                System.out.print(" ATK: " + player.getAttack());
-                                System.out.println("\t\t\t\t\t ATK: " + enemy.getAttack());
+                                    System.out.print(" ATK: " + player.getAttack());
+                                    System.out.println("\t\t\t\t\t ATK: " + enemy.getAttack());
 
-                                System.out.print(" DEF: " + player.getDefense());
-                                System.out.println("\t\t\t\t\t DEF: " + enemy.getDefense());
+                                    System.out.print(" DEF: " + player.getDefense());
+                                    System.out.println("\t\t\t\t\t DEF: " + enemy.getDefense());
 
-                                System.out.println("\n[Your Action]");
-                                System.out.println("1. Attack");
-                                System.out.println("2. Defend");
-                                System.out.print("> ");
-                                code = scan.nextInt();
+                                    System.out.println("\n[Your Action]");
+                                    System.out.println("1. Attack");
+                                    System.out.println("2. Defend");
+                                    System.out.print("> ");
+
+                                    try {
+                                        code = scan.nextInt();
+                                        if (code > 0 && code <= 2) {
+                                            break;
+                                        } else {
+                                            System.out.println("\n[ERROR] Input action not recognized, please enter again!");
+                                        }
+                                    } catch (InputMismatchException e) {
+                                        System.out.println("\n[ERROR] Input action not recognized, please enter again!");
+                                        scan.nextLine();
+                                    }
+                                } while (true);
 
                                 switch (code) {
                                     case 1:
@@ -200,11 +266,24 @@ public class Main {
                                         player.addMaxHealth(20);
 
                                         // Get +1 stats
-                                        System.out.println("\nYou get +1 stats, please choose:");
-                                        System.out.println("1. Attack +1");
-                                        System.out.println("2. Defend +1");
-                                        System.out.print("> ");
-                                        code = scan.nextInt();
+                                        do {
+                                            System.out.println("\nYou get +1 stats, please choose:");
+                                            System.out.println("1. Attack +1");
+                                            System.out.println("2. Defend +1");
+                                            System.out.print("> ");
+
+                                            try {
+                                                code = scan.nextInt();
+                                                if (code > 0 && code <= 2) {
+                                                    break;
+                                                } else {
+                                                    System.out.println("\n[ERROR] Input action not recognized, please enter again!");
+                                                }
+                                            } catch (InputMismatchException e) {
+                                                System.out.println("\n[ERROR] Input action not recognized, please enter again!");
+                                                scan.nextLine();
+                                            }
+                                        } while (true);
 
                                         // Choose stats to increase +1
                                         switch (code) {
@@ -241,14 +320,25 @@ public class Main {
             }
 
             while (canRest) {
-                if (gameover) break;
+                do {
+                    System.out.println("\nYou're very tired and you can't keep going for tonight.");
+                    System.out.println("[Your Action]");
+                    System.out.println("1. Rest");
+                    System.out.println("2. Show Stats");
+                    System.out.print("> ");
 
-                System.out.println("\nYou're very tired and you can't keep going for tonight.");
-                System.out.println("[Your Action]");
-                System.out.println("1. Rest");
-                System.out.println("2. Show Stats");
-                System.out.print("> ");
-                code = scan.nextInt();
+                    try {
+                        code = scan.nextInt();
+                        if (code > 0 && code <= 2) {
+                            break;
+                        } else {
+                            System.out.println("\n[ERROR] Input action not recognized, please enter again!");
+                        }
+                    } catch (InputMismatchException e) {
+                        System.out.println("\n[ERROR] Input action not recognized, please enter again!");
+                        scan.nextLine();
+                    }
+                } while (true);
 
                 switch (code) {
                     case 1:

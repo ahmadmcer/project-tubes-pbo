@@ -44,8 +44,27 @@ public class Main {
                     gacha = random.nextInt(2);
 
                     if (gacha == 1) {
-                        Enemy enemy = new Goblin("Goblin", 15, 15, 3, 3, 1);
+                        // initaize enemy
+                        Enemy enemy;
+                        gacha = random.nextInt(3);
+                        switch (gacha) {
+                            case 0:
+                                gacha = random.nextInt(player.getLevel());
+                                enemy = new Slime(gacha + 1);
+                                break;
+                            case 1:
+                                gacha = random.nextInt(player.getLevel());
+                                enemy = new Goblin(gacha + 1);
+                                break;
+                            case 2:
+                                gacha = random.nextInt(player.getLevel());
+                                enemy = new Minotaur(gacha + 1);
+                                break;
+                            default:
+                                throw new IllegalStateException("Unexpected value: " + gacha);
+                        }
                         System.out.println("You meet " + enemy.getName() + " (enemy).");
+                        System.out.println(enemy.IntroAlley());
                         System.out.println("[Your Action]");
                         System.out.println("1. Fight");
                         System.out.println("2. Run");

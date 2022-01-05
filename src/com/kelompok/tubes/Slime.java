@@ -1,7 +1,18 @@
 package com.kelompok.tubes;
 
 public class Slime extends Enemy{
-    public Slime(String name, int health, int maxHealth, int attack, int defense, int level) {
-        super(name, health, maxHealth, attack, defense, level);
+    public Slime(int level) {
+        this.name = "Slime";
+        this.health = 5 * level;
+        this.maxHealth = 5 * level;
+        this.attack = 1 * level;
+        this.defense = 0;
+        this.level = level;
+    }
+
+    public String IntroAlley() {
+        super.IntroAlley();
+        System.out.println("Our people will allways defeat human");
+        return word;
     }
 }

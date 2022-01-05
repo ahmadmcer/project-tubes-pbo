@@ -6,11 +6,11 @@
 
 ### TEAM
 <!-- diisi repo masing2 -->
-#### - [`AALIYAH KHALIF HANDOYO`]()
-#### - [`ARIS CAHYADI`]()
-#### - [`AHMAD NAWAWI`]()
-#### - [`AJIB SYAH ABAD`]()
-#### - [`ALIF RIZKI RAMDHANA`]()
+#### - [`AALIYAH KHALIF HANDOYO`](https://github.com/kucing31/20104003_Aaliyah-Khalif-Handoyo_S1SEA_Pemrograman2/tree/main)
+#### - [`ARIS CAHYADI`](https://github.com/Lil-Pumpkin/20104017_Aris-Cahyadi_S1SEA_Pemrogaman2/tree/main)
+#### - [`AHMAD NAWAWI`](https://github.com/ahmadmcer/20104009_Ahmad-Nawawi_S1SEA_Pemrograman2/tree/main)
+#### - [`AJIB SYAH ABAD`](https://github.com/ajep96/20104010_Ajib-Syah-Abad_S1SEA_Pemrograman2/tree/main)
+#### - [`ALIF RIZKI RAMDHANA`](https://github.com/renzien/20104012_Alif-Rizki-Ramdhana_S1SEA_Pemrograman2/tree/main)
 
 ## RPG GAME - DRAGON SLAYER 🔥🔥🔥🔥
 <hr>

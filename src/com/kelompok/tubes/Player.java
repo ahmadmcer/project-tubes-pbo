@@ -8,6 +8,7 @@ public class Player {
     private int experience;
     private int maxExperience;
     private int level;
+    private boolean defend;
 
     public Player(int health, int maxHealth, int attack, int defense, int experience, int maxExperience, int level) {
         this.health = health;
@@ -17,6 +18,7 @@ public class Player {
         this.experience = experience;
         this.maxExperience = maxExperience;
         this.level = level;
+        this.defend = false;
     }
 
     public int getHealth() {
@@ -45,6 +47,10 @@ public class Player {
 
     public int getLevel() {
         return level;
+    }
+
+    public boolean getDefend() {
+        return defend;
     }
 
     public void addHealth(int health) {
@@ -101,5 +107,9 @@ public class Player {
 
     public void setLevel(int level) {
         this.level = level;
+    }
+
+    public void setDefend(boolean defend) {
+        this.defend = defend;
     }
 }

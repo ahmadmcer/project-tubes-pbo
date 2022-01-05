@@ -209,7 +209,7 @@ public class Main {
                         }
 
                     } else {
-                        System.out.println("You reach the end of the journey.");
+                        System.out.println("You reach the end of the day.");
                     }
                     break;
                 case 2:

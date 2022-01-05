@@ -53,3 +53,18 @@ Here we would have the update steps for Alpha 1.0.0 for people to follow.
 
 - Enemies come randomly.
 - Player health increase after leveling up.
+
+## [Alpha 1.2.0] - 2022-01-04
+
+### Added
+
+### Changed
+
+- Every time player level up the max exp increases by 8.
+- Every time player level up the health poin increases by 20.
+- Enemy stats depend on level.
+- Player can only walk after rest and vice versa or after fighting enemies.
+
+### Fixed
+
+- Game still continue after player died.

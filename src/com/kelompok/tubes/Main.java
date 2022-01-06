@@ -169,13 +169,28 @@ public class Main {
                                     System.out.println("\t\t\t[" + enemy.getName() + " Lv. " + enemy.getLevel() + "]");
 
                                     System.out.print(" HP : " + player.getHealth() + "/" + player.getMaxHealth());
-                                    System.out.println("\t\t\t\t HP : " + enemy.getHealth() + "/" + enemy.getMaxHealth());
+                                    if (player.getMaxHealth() > 999 || (player.getMaxHealth() > 99 && player.getHealth() > 9)) {
+                                        System.out.print("\t\t\t");
+                                    } else {
+                                        System.out.print("\t\t\t\t");
+                                    }
+                                    System.out.println(" HP : " + enemy.getHealth() + "/" + enemy.getMaxHealth());
 
                                     System.out.print(" ATK: " + player.getAttack());
-                                    System.out.println("\t\t\t\t\t ATK: " + enemy.getAttack());
+                                    if (player.getAttack() > 9) {
+                                        System.out.print("\t\t\t\t");
+                                    } else {
+                                        System.out.print("\t\t\t\t\t");
+                                    }
+                                    System.out.println(" ATK: " + enemy.getAttack());
 
                                     System.out.print(" DEF: " + player.getDefense());
-                                    System.out.println("\t\t\t\t\t DEF: " + enemy.getDefense());
+                                    if (player.getDefense() > 9) {
+                                        System.out.print("\t\t\t\t");
+                                    } else {
+                                        System.out.print("\t\t\t\t\t");
+                                    }
+                                    System.out.println(" DEF: " + enemy.getDefense());
 
                                     System.out.println("\n[Your Action]");
                                     System.out.println("1. Attack");
@@ -253,9 +268,9 @@ public class Main {
                                 if (enemy.getHealth() <= 0) {
                                     System.out.println("\nYou win fight!");
 
-                                    int experience = 8 * enemy.getLevel();
-                                    player.addExperience(experience);
-                                    System.out.println("You get " + experience + " EXP.");
+                                    player.addExperience(enemy.getExperience());
+                                    System.out.println("You get " + enemy.getExperience() + " EXP.");
+                                    System.out.println("EXP: " + player.getExperience() + "/" + player.getMaxExperience());
 
                                     while (player.getExperience() >= player.getMaxExperience()) {
                                         System.out.println("\nYou leveled up!");

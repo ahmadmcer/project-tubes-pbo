@@ -38,6 +38,10 @@ public class Enemy {
         return defense;
     }
 
+    public int getExperience() {
+        return experience;
+    }
+
     public int getLevel() {
         return level;
     }
